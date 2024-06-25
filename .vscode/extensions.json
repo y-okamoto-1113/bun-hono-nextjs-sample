@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss",
+    "dracula-theme.theme-dracula",
+    "csstools.postcss",
+    "jpoissonnier.vscode-styled-components",
+    "visualstudioexptteam.vscodeintellicode",
+    "zxh404.vscode-proto3",
+    "hollowtree.vue-snippets",
+    "editorconfig.editorconfig"
+  ]
+}
