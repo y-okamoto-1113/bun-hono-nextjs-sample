@@ -1,20 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 function App() {
-  const [count, setCount] = useState<number>(0);
+  const [totalSpent, setTotalSpent] = useState<number>(0);
 
+  useEffect(() => {
+    fetch("/api/expenses/total-spent")
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalSpent(data.totalSpent);
+      });
+  }, []);
   return (
-    <div className="flex flex-col bg-background max-w-md m-auto gap-y-5">
-      <Button className="" type="button" onClick={() => setCount(count + 1)}>
-        up
-      </Button>
-      <Button type="button" onClick={() => setCount(count - 1)}>
-        down
-      </Button>
-      <p>{count}</p>
-    </div>
+    <Card className="max-w-md m-auto">
+      <CardHeader>
+        <CardTitle>Total Spent</CardTitle>
+        <CardDescription>The total amount you've spent</CardDescription>
+      </CardHeader>
+      <CardContent>{totalSpent}</CardContent>
+      <CardFooter>
+        <p>developed by okamoto</p>
+      </CardFooter>
+    </Card>
   );
 }
 
