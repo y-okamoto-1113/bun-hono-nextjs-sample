@@ -22,4 +22,7 @@ This project was created using `bun init` in bun v1.1.14. [Bun](https://bun.sh) 
 - Hono Stack
 - https://zenn.dev/aishift/articles/a3dc8dcaac6bfa
 - TailwindCSS
+- shadcn
+- vite
+- bun
 - 
