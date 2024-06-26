@@ -5,7 +5,8 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "always",
-    "quickfix.biome": "always"
+    "quickfix.biome": "always",
+    "source.fixAll": "always"
   },
   // JS系はBiomeを使い、それ以外はPrettierを使う
   "editor.defaultFormatter": "esbenp.prettier-vscode",

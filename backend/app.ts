@@ -1,10 +1,11 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { basicAuth } from "hono/basic-auth";
-import { createMiddleware } from "hono/factory";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 import { z } from "zod";
+import { customLogger } from "./middlewares/customLogger";
+import { expenseRoute } from "./routes/expense";
 
 const app = new Hono();
 
@@ -15,66 +16,6 @@ app.use(async (c, next) => {
   await next();
   const end = Date.now();
   c.res.headers.set("X-Response-Time", `${end - start}`);
-});
-
-// カスタムロガー
-type Env = {
-  Variables: {
-    requestId: string;
-  };
-};
-const customLogger = createMiddleware<Env>(async (c, next) => {
-  const startTime = Date.now();
-  const requestId = uuidv4();
-  const { method, url } = c.req;
-  // リクエストIDをコンテキストに保存
-  c.set("requestId", requestId);
-  // c.req.locals.requestId = requestId;
-
-  console.log(
-    `[${new Date().toISOString()}] [Request] [${requestId}] ${method} ${url}`,
-  );
-  const headers = c.req.header();
-  if (headers) {
-    console.log(
-      `[${new Date().toISOString()}] [Request Headers] [${requestId}] ${JSON.stringify(
-        headers,
-        null,
-        4,
-      )}`,
-    );
-  }
-  const body = await c.req.text();
-  if (body) {
-    console.log(
-      `[${new Date().toISOString()}] [Request Body] [${requestId}] ${body}`,
-    );
-  }
-
-  await next();
-
-  const statusCode = c.res.status;
-  const endTime = Date.now();
-  const duration = endTime - startTime;
-
-  // レスポンスログの出力
-  console.log(
-    `[${new Date().toISOString()}] [Response] [${requestId}] ${statusCode} ${duration}ms`,
-  );
-  const responseHeaders = c.res.headers;
-  if (responseHeaders) {
-    console.log(
-      `[${new Date().toISOString()}] [Response Headers] [${requestId}] ${JSON.stringify(
-        responseHeaders,
-      )}`,
-    );
-  }
-  const responseBody = await c.res.text();
-  if (responseBody) {
-    console.log(
-      `[${new Date().toISOString()}] [Response Body] [${requestId}] ${responseBody}`,
-    );
-  }
 });
 app.use(logger());
 app.use("*", customLogger);
@@ -143,5 +84,7 @@ app.use(
 app.get("/admin", (c) => {
   return c.text("You are authorized!");
 });
+
+app.route("/api/expenses", expenseRoute);
 
 export default app;

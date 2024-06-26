@@ -1,13 +1,11 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "ms-vscode.vscode-typescript-next",
     "bradlc.vscode-tailwindcss",
     "csstools.postcss",
-    "jpoissonnier.vscode-styled-components",
+    "styled-components.vscode-styled-components",
     "visualstudioexptteam.vscodeintellicode",
     "zxh404.vscode-proto3",
-    "hollowtree.vue-snippets",
     "editorconfig.editorconfig",
     // Linter, Formatter
     "esbenp.prettier-vscode",
