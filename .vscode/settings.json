@@ -25,6 +25,9 @@
   "[json]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "eslint.validate": ["javascript", "typescript"],
   "typescript.tsdk": "node_modules/typescript/lib"
 }
