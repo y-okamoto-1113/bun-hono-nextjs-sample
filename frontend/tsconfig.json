@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "../",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
@@ -25,8 +26,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
-  // "files": [],
+  "include": ["src", "../backend/**/*"],
   // "references": [
   //   {
   //     "path": "./tsconfig.app.json"

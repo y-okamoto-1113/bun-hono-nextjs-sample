@@ -6,6 +6,7 @@ import { prettyJSON } from "hono/pretty-json";
 import { z } from "zod";
 import { customLogger } from "./middlewares/customLogger";
 import { expenseRoute } from "./routes/expense";
+import staticRoute from "./routes/statics";
 
 const app = new Hono();
 
@@ -85,6 +86,8 @@ app.get("/admin", (c) => {
   return c.text("You are authorized!");
 });
 
-app.route("/api/expenses", expenseRoute);
+const apiExpensesRoutes = app.basePath("/api").route("/expenses", expenseRoute);
+export type ApiExpensesRoutesType = typeof apiExpensesRoutes;
 
+app.route("*", staticRoute);
 export default app;

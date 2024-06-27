@@ -8,16 +8,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { hc } from "hono/client";
+import type { ApiExpensesRoutesType } from "../../backend/app";
 
-function App() {
+const client = hc<ApiExpensesRoutesType>("/");
+
+async function App() {
   const [totalSpent, setTotalSpent] = useState<number>(0);
 
   useEffect(() => {
-    fetch("/api/expenses/total-spent")
-      .then((res) => res.json())
-      .then((data) => {
-        setTotalSpent(data.totalSpent);
-      });
+    async function fetchTotalSpent() {
+      const res = await client.api.expenses["total-spent"].$get();
+      const data = await res.json();
+      setTotalSpent(data.totalSpent);
+    }
+    fetchTotalSpent();
   }, []);
   return (
     <Card className="max-w-md m-auto">
