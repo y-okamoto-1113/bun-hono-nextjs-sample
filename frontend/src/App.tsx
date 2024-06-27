@@ -8,17 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { hc } from "hono/client";
-import type { ApiExpensesRoutesType } from "../../backend/app";
-
-const client = hc<ApiExpensesRoutesType>("/");
+import { api } from "@/lib/api";
 
 async function App() {
   const [totalSpent, setTotalSpent] = useState<number>(0);
 
   useEffect(() => {
     async function fetchTotalSpent() {
-      const res = await client.api.expenses["total-spent"].$get();
+      const res = await api.expenses["total-spent"].$get();
       const data = await res.json();
       setTotalSpent(data.totalSpent);
     }
