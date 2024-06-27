@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { api } from "@/lib/api";
 
-async function App() {
+const App = () => {
   const [totalSpent, setTotalSpent] = useState<number>(0);
 
   useEffect(() => {
@@ -21,6 +21,7 @@ async function App() {
     }
     fetchTotalSpent();
   }, []);
+
   return (
     <Card className="max-w-md m-auto">
       <CardHeader>
@@ -33,6 +34,6 @@ async function App() {
       </CardFooter>
     </Card>
   );
-}
+};
 
 export default App;
