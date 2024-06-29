@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -41,15 +42,24 @@ const Expenses = () => {
         </TableHeader>
         <TableBody>
           {isPending
-            ? "..."
+            ? [1, 2, 3].map((id) => (
+                <TableRow key={id}>
+                  <TableCell className="font-medium">
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Skeleton />
+                  </TableCell>
+                </TableRow>
+              ))
             : data?.expenses.map((expense) => (
                 <TableRow key={expense.id}>
                   <TableCell className="font-medium">{expense.id}</TableCell>
                   <TableCell>{expense.title}</TableCell>
-                  <TableCell>{expense.amount}</TableCell>
-                  <TableCell className="text-right">
-                    {expense.totalAmount}
-                  </TableCell>
+                  <TableCell className="text-right">{expense.amount}</TableCell>
                 </TableRow>
               ))}
         </TableBody>
