@@ -5,6 +5,7 @@ import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 import { z } from "zod";
 import { customLogger } from "./middlewares/customLogger";
+import { authRoutes } from "./routes/auth";
 import { expenseRoute } from "./routes/expense";
 import staticRoute from "./routes/statics";
 
@@ -86,7 +87,10 @@ app.get("/admin", (c) => {
   return c.text("You are authorized!");
 });
 
-const apiExpensesRoutes = app.basePath("/api").route("/expenses", expenseRoute);
+const apiExpensesRoutes = app
+  .basePath("/api")
+  .route("/expenses", expenseRoute)
+  .route("/", authRoutes);
 export type ApiExpensesRoutesType = typeof apiExpensesRoutes;
 
 app.route("*", staticRoute);
