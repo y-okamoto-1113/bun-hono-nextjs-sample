@@ -2,9 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { api } from "@/lib/api";
+import { createExpenseSchema } from "@backend/sharedTypes";
 import { useForm } from "@tanstack/react-form";
 import type { FieldApi } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { zodValidator } from "@tanstack/zod-form-adapter";
 
 function FieldInfo({
   field,
@@ -23,6 +25,7 @@ function FieldInfo({
 function CreateExpense() {
   const navigate = useNavigate();
   const form = useForm({
+    validatorAdapter: zodValidator(),
     defaultValues: {
       title: "",
       amount: "0",
@@ -44,7 +47,13 @@ function CreateExpense() {
           form.handleSubmit();
         }}
       >
-        <form.Field name="title">
+        <form.Field
+          name="title"
+          validatorAdapter={zodValidator()}
+          validators={{
+            onChange: createExpenseSchema.shape.title,
+          }}
+        >
           {(field) => (
             <>
               <Label htmlFor={field.name}>Title</Label>
@@ -61,7 +70,12 @@ function CreateExpense() {
           )}
         </form.Field>
         <br />
-        <form.Field name="amount">
+        <form.Field
+          name="amount"
+          validators={{
+            onChange: createExpenseSchema.shape.amount,
+          }}
+        >
           {(field) => (
             <>
               <Label htmlFor={field.name}>Amount</Label>
