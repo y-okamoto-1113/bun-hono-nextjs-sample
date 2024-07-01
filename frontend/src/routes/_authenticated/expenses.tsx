@@ -27,7 +27,7 @@ const Expenses = () => {
   });
   if (error) return `An error has occurred: ${error.message}`;
   const totalExpenses =
-    data?.expenses?.reduce((acc, expense) => acc + expense.amount, 0) ?? 0;
+    data?.expenses?.reduce((acc, expense) => acc + +expense.amount, 0) ?? 0;
 
   return (
     <div className="p-2 max-w-3xl m-auto">
@@ -65,7 +65,7 @@ const Expenses = () => {
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={3}>Total</TableCell>
+            <TableCell colSpan={2}>Total</TableCell>
             <TableCell className="text-right">${totalExpenses}</TableCell>
           </TableRow>
         </TableFooter>

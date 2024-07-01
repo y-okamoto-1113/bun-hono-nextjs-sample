@@ -6,8 +6,10 @@ import { useForm } from "@tanstack/react-form";
 import type { FieldApi } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-function FieldInfo({ field }: { field: FieldApi<any, any, any, any> }) {
+function FieldInfo({
+  field,
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+}: Readonly<{ field: FieldApi<any, any, any, any> }>) {
   return (
     <>
       {field.state.meta.touchedErrors ? (
@@ -23,10 +25,9 @@ function CreateExpense() {
   const form = useForm({
     defaultValues: {
       title: "",
-      amount: 0,
+      amount: "0",
     },
     onSubmit: async ({ value }) => {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
       const res = await api.expenses.$post({ json: value });
       if (!res.ok) throw new Error("Failed to create expense");
       navigate({ to: "/expenses" });
@@ -43,10 +44,8 @@ function CreateExpense() {
           form.handleSubmit();
         }}
       >
-        <form.Field
-          name="title"
-          // biome-ignore lint/correctness/noChildrenProp: <explanation>
-          children={(field) => (
+        <form.Field name="title">
+          {(field) => (
             <>
               <Label htmlFor={field.name}>Title</Label>
               <Input
@@ -60,37 +59,36 @@ function CreateExpense() {
               <FieldInfo field={field} />
             </>
           )}
-        />
+        </form.Field>
         <br />
-        <form.Field
-          name="amount"
-          // biome-ignore lint/correctness/noChildrenProp: <explanation>
-          children={(field) => (
+        <form.Field name="amount">
+          {(field) => (
             <>
               <Label htmlFor={field.name}>Amount</Label>
               <Input
                 type="number"
+                step="0.01"
                 id={field.name}
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(Number(e.target.value))}
+                onChange={(e) => field.handleChange(e.target.value)}
               />
               <FieldInfo field={field} />
             </>
           )}
-        />
+        </form.Field>
         <br />
         <form.Subscribe
           selector={(state) => [state.canSubmit, state.isSubmitting]}
-          // biome-ignore lint/correctness/noChildrenProp: <explanation>
-          children={([canSubmit, isSubmitting]) => (
+        >
+          {([canSubmit, isSubmitting]) => (
             <Button type="submit" className="mt-4" disabled={!canSubmit}>
               Create
               {isSubmitting ? "..." : "Submit"}
             </Button>
           )}
-        />
+        </form.Subscribe>
       </form>
     </div>
   );

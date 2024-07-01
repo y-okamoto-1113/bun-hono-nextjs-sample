@@ -8,6 +8,7 @@
     "quickfix.biome": "always",
     "source.fixAll": "always"
   },
+  // Formatter
   // JS系はBiomeを使い、それ以外はPrettierを使う
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
@@ -30,6 +31,10 @@
   },
   "eslint.validate": ["javascript", "typescript"],
   "typescript.tsdk": "node_modules/typescript/lib",
+  "files.associations": {
+    "*.env*": "dotenv",
+    "*Dockerfile*": "dockerfile"
+  },
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   }

@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1719820591298,
+      "tag": "0000_tough_carmella_unuscione",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1719829104643,
+      "tag": "0001_futuristic_microchip",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1719835096568,
+      "tag": "0002_solid_masked_marvel",
+      "breakpoints": true
+    }
+  ]
+}

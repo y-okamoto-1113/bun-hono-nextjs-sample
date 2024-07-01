@@ -27,7 +27,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "../backend/**/*"],
+  "include": ["src", "../backend/**/*", "../drizzle.config.ts", "../migrate.ts"],
   // "references": [
   //   {
   //     "path": "./tsconfig.app.json"

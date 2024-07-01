@@ -27,4 +27,4 @@ This project was created using `bun init` in bun v1.1.14. [Bun](https://bun.sh) 
 - bun
 - AWS Lambda へのデプロイ方法
 - TanStack Query
--
+- Drizzle
