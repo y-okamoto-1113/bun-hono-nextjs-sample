@@ -40,7 +40,7 @@ function CreateExpense() {
   return (
     <div className="p-2">
       <form
-        className="max-w-3xl m-auto"
+        className="flex flex-col max-w-3xl m-auto"
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -55,7 +55,7 @@ function CreateExpense() {
           }}
         >
           {(field) => (
-            <>
+            <div>
               <Label htmlFor={field.name}>Title</Label>
               <Input
                 id={field.name}
@@ -66,7 +66,7 @@ function CreateExpense() {
                 onChange={(e) => field.handleChange(e.target.value)}
               />
               <FieldInfo field={field} />
-            </>
+            </div>
           )}
         </form.Field>
         <br />
@@ -77,7 +77,7 @@ function CreateExpense() {
           }}
         >
           {(field) => (
-            <>
+            <div>
               <Label htmlFor={field.name}>Amount</Label>
               <Input
                 type="number"
@@ -89,7 +89,7 @@ function CreateExpense() {
                 onChange={(e) => field.handleChange(e.target.value)}
               />
               <FieldInfo field={field} />
-            </>
+            </div>
           )}
         </form.Field>
         <br />
