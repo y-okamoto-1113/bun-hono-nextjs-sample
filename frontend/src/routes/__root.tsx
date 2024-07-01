@@ -8,25 +8,27 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 const NavBar = () => {
   return (
-    <div className="p-2 flex gap-2 max-w-2xl m-auto">
+    <div className="p-2 flex justify-between max-w-2xl m-auto items-baseline">
       <Link to="/" className="[&.active]:font-bold">
-        Home
+        <h1 className="text-2xl font-bold">Expense Tracker</h1>
       </Link>
-      <Link to="/about" className="[&.active]:font-bold">
-        About
-      </Link>
-      <Link to="/help" className="[&.active]:font-bold">
-        Help
-      </Link>
-      <Link to="/expenses" className="[&.active]:font-bold">
-        Expenses
-      </Link>
-      <Link to="/create-expense" className="[&.active]:font-bold">
-        Create Expenses
-      </Link>
-      <Link to="/profile" className="[&.active]:font-bold">
-        Profile
-      </Link>
+      <div className="flex gap-2">
+        <Link to="/about" className="[&.active]:font-bold">
+          About
+        </Link>
+        <Link to="/help" className="[&.active]:font-bold">
+          Help
+        </Link>
+        <Link to="/expenses" className="[&.active]:font-bold">
+          Expenses
+        </Link>
+        <Link to="/create-expense" className="[&.active]:font-bold">
+          Create Expenses
+        </Link>
+        <Link to="/profile" className="[&.active]:font-bold">
+          Profile
+        </Link>
+      </div>
     </div>
   );
 };

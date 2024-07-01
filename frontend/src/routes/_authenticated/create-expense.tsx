@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { api } from "@/lib/api";
@@ -29,6 +30,7 @@ function CreateExpense() {
     defaultValues: {
       title: "",
       amount: "0",
+      date: new Date().toISOString(),
     },
     onSubmit: async ({ value }) => {
       const res = await api.expenses.$post({ json: value });
@@ -87,6 +89,28 @@ function CreateExpense() {
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
+              />
+              <FieldInfo field={field} />
+            </div>
+          )}
+        </form.Field>
+        <br />
+        <form.Field
+          name="date"
+          validators={{
+            onChange: createExpenseSchema.shape.date,
+          }}
+        >
+          {(field) => (
+            <div className="self-center">
+              <Label htmlFor={field.name}>Date</Label>
+              <Calendar
+                mode="single"
+                selected={new Date(field.state.value)}
+                onSelect={(date) =>
+                  field.handleChange((date ?? new Date()).toISOString())
+                }
+                className="rounded-md border"
               />
               <FieldInfo field={field} />
             </div>
