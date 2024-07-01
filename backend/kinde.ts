@@ -79,7 +79,7 @@ export const getUser = createMiddleware<Env>(async (c, next) => {
     const session = sessionManager(c);
     const isAuthenticated = await kindeClient.isAuthenticated(session);
     if (!isAuthenticated) {
-      return c.json({ error: "Unauthorized" }, 401);
+      return c.json({ error: "Unauthorized, Heehaa!!!" }, 401);
     }
 
     const user = await kindeClient.getUserProfile(session);
@@ -87,6 +87,6 @@ export const getUser = createMiddleware<Env>(async (c, next) => {
     await next();
   } catch (e) {
     console.error(e);
-    return c.json({ error: "Unauthorized" }, 401);
+    return c.json({ error: "Unauthorized!!!!!" }, 401);
   }
 });
