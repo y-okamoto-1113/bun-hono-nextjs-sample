@@ -2,10 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { api } from "@/lib/api";
+import { api, getAllExpensesQueryOptions } from "@/lib/api";
 import { createExpenseSchema } from "@backend/sharedTypes";
 import { useForm } from "@tanstack/react-form";
 import type { FieldApi } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 
@@ -25,6 +26,7 @@ function FieldInfo({
 
 function CreateExpense() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
@@ -33,8 +35,16 @@ function CreateExpense() {
       date: new Date().toISOString(),
     },
     onSubmit: async ({ value }) => {
+      const existingExpenses = await queryClient.ensureQueryData(
+        getAllExpensesQueryOptions,
+      );
       const res = await api.expenses.$post({ json: value });
       if (!res.ok) throw new Error("Failed to create expense");
+
+      const newExpense = await res.json();
+      queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
+        expenses: [newExpense, ...existingExpenses.expenses],
+      });
       navigate({ to: "/expenses" });
     },
   });
