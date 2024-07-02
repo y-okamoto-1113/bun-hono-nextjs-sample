@@ -1,9 +1,11 @@
+import type { z } from "zod";
 import { insertExpenseSchema } from "./db/schema/expenses";
 
-export const expenseScehema = insertExpenseSchema.omit({
+export const createExpenseSchema = insertExpenseSchema.omit({
+  id: true,
   userId: true,
   createdAt: true,
   updatedAt: true,
 });
 
-export const createExpenseSchema = expenseScehema.omit({ id: true });
+export type CreateExpense = z.infer<typeof createExpenseSchema>;

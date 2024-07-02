@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { api, getAllExpensesQueryOptions } from "@/lib/api";
+import { createExpense, getAllExpensesQueryOptions } from "@/lib/api";
 import { createExpenseSchema } from "@backend/sharedTypes";
 import { useForm } from "@tanstack/react-form";
 import type { FieldApi } from "@tanstack/react-form";
@@ -38,10 +38,8 @@ function CreateExpense() {
       const existingExpenses = await queryClient.ensureQueryData(
         getAllExpensesQueryOptions,
       );
-      const res = await api.expenses.$post({ json: value });
-      if (!res.ok) throw new Error("Failed to create expense");
 
-      const newExpense = await res.json();
+      const newExpense = await createExpense({ value });
       queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
         expenses: [newExpense, ...existingExpenses.expenses],
       });

@@ -1,4 +1,5 @@
 import type { ApiExpensesRoutesType } from "@backend/app";
+import type { CreateExpense } from "@backend/sharedTypes";
 import { queryOptions } from "@tanstack/react-query";
 import { hc } from "hono/client";
 
@@ -31,3 +32,11 @@ export const getAllExpensesQueryOptions = queryOptions({
   queryFn: getAllExpenses,
   staleTime: 1000 * 60 * 5,
 });
+
+export const createExpense = async ({ value }: { value: CreateExpense }) => {
+  // await new Promise((r) => setTimeout(r, 3000));
+  const res = await api.expenses.$post({ json: value });
+  if (!res.ok) throw new Error("Failed to create expense");
+  const newExpense = await res.json();
+  return newExpense;
+};
