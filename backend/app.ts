@@ -1,4 +1,5 @@
 import { zValidator } from "@hono/zod-validator";
+import figlet from "figlet";
 import { Hono } from "hono";
 import { basicAuth } from "hono/basic-auth";
 import { logger } from "hono/logger";
@@ -93,5 +94,9 @@ const apiExpensesRoutes = app
   .route("/", authRoutes);
 export type ApiExpensesRoutesType = typeof apiExpensesRoutes;
 
+app.get("figlet", (c) => {
+  const body = figlet.textSync("Bun!");
+  return c.body(body);
+});
 app.route("*", staticRoute);
 export default app;
