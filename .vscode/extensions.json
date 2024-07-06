@@ -41,6 +41,6 @@
     "MichalZaporski.simple-yard-snippets",
     "sianglim.slim",
     "JuanBlanco.solidity",
-    "NomicFoundation.hardhat-solidity",
+    "NomicFoundation.hardhat-solidity"
   ]
 }
