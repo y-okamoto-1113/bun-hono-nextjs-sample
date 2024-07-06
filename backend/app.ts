@@ -7,7 +7,9 @@ import { prettyJSON } from "hono/pretty-json";
 import { z } from "zod";
 import { customLogger } from "./middlewares/customLogger";
 import { authRoutes } from "./routes/auth";
+import { errorHandlingRoute } from "./routes/errorHandling";
 import { expenseRoute } from "./routes/expense";
+import { addRoutes, routesRoute } from "./routes/routes";
 import staticRoute from "./routes/statics";
 
 const app = new Hono();
@@ -99,4 +101,10 @@ app.get("figlet", (c) => {
   return c.body(body);
 });
 app.route("*", staticRoute);
+
+app.route("/", errorHandlingRoute);
+
+// ルーティング一覧確認
+addRoutes(app.routes);
+app.route("/", routesRoute);
 export default app;
