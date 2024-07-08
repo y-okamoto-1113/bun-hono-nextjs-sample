@@ -7,7 +7,7 @@ import {
   insertExpenseSchema,
 } from "../db/schema/expenses";
 import { getUser } from "../kinde";
-import { createExpenseSchema } from "../sharedTypes";
+import { createExpenseRequestSchema } from "../sharedTypes";
 
 export const expenseRoute = new Hono()
   .get("/", getUser, async (c) => {
@@ -22,24 +22,29 @@ export const expenseRoute = new Hono()
 
     return c.json({ expenses: expenses });
   })
-  .post("/", getUser, zValidator("json", createExpenseSchema), async (c) => {
-    const expense = await c.req.valid("json");
-    const user = c.var.user;
+  .post(
+    "/",
+    getUser,
+    zValidator("json", createExpenseRequestSchema),
+    async (c) => {
+      const expense = c.req.valid("json");
+      const user = c.var.user;
 
-    const validatedExpennse = insertExpenseSchema.parse({
-      ...expense,
-      userId: user.id,
-    });
+      const validatedExpense = insertExpenseSchema.parse({
+        ...expense,
+        userId: user.id,
+      });
 
-    const result = await db
-      .insert(expenseTable)
-      .values(validatedExpennse)
-      .returning()
-      .then((res) => res[0]);
+      const result = await db
+        .insert(expenseTable)
+        .values(validatedExpense)
+        .returning()
+        .then((res) => res[0]);
 
-    c.status(201);
-    return c.json(result);
-  })
+      c.status(201);
+      return c.json(result);
+    },
+  )
   .get("total-spent", getUser, async (c) => {
     const user = c.var.user;
 
@@ -64,11 +69,11 @@ export const expenseRoute = new Hono()
       .then((res) => res[0]);
 
     if (!expense) {
-      c.notFound();
-    } else {
-      return c.json({ expense });
+      return c.notFound();
     }
+    return c.json({ expense });
   })
+  // .put
   .delete("/:id{[0-9]+}", getUser, async (c) => {
     const id = Number.parseInt(c.req.param("id"));
     const user = c.var.user;
@@ -85,6 +90,5 @@ export const expenseRoute = new Hono()
       return c.json({ expense });
     }
   });
-// .put
 
 export default expenseRoute;

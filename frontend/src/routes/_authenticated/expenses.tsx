@@ -32,7 +32,7 @@ const Expenses = () => {
             <TableHead>Title</TableHead>
             <TableHead>Date</TableHead>
             <TableHead className="text-right">Amount</TableHead>
-            <TableHead className="text-right">Delete</TableHead>
+            <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

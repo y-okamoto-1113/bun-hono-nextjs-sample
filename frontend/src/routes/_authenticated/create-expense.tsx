@@ -3,7 +3,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createExpense, getAllExpensesQueryOptions } from "@/lib/api";
-import { createExpenseSchema } from "@backend/sharedTypes";
+import { createExpenseRequestSchema } from "@backend/sharedTypes";
 import { useForm } from "@tanstack/react-form";
 import type { FieldApi } from "@tanstack/react-form";
 import { useQueryClient } from "@tanstack/react-query";
@@ -61,7 +61,7 @@ function CreateExpense() {
           name="title"
           validatorAdapter={zodValidator()}
           validators={{
-            onChange: createExpenseSchema.shape.title,
+            onChange: createExpenseRequestSchema.shape.title,
           }}
         >
           {(field) => (
@@ -83,7 +83,7 @@ function CreateExpense() {
         <form.Field
           name="amount"
           validators={{
-            onChange: createExpenseSchema.shape.amount,
+            onChange: createExpenseRequestSchema.shape.amount,
           }}
         >
           {(field) => (
@@ -106,7 +106,7 @@ function CreateExpense() {
         <form.Field
           name="date"
           validators={{
-            onChange: createExpenseSchema.shape.date,
+            onChange: createExpenseRequestSchema.shape.date,
           }}
         >
           {(field) => (
