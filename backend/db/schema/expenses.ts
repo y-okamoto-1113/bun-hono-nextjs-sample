@@ -40,3 +40,16 @@ export const insertExpenseSchema = createInsertSchema(expenses, {
 });
 // Schema for selecting a expense - can be used to validate API responses
 export const selectExpenseSchema = createSelectSchema(expenses);
+
+// @todo tanstack routerがクソなので、コンポーネントのルーティングがうまく行かない。一旦更新機能はPend
+// @note DBにUpdateかける時はID不要。WhereでID使うだけ。
+// export const updateExpenseSchema = createInsertSchema(expenses, {
+//   // id: z.string().regex(/^\d+/, { message: "IDが不正です。" }),
+//   title: z
+//     .string()
+//     .min(1, { message: "1文字以上入力してください。" })
+//     .max(100, { message: "100文字以内に収めてください。" }),
+//   amount: z.string().regex(/^\d+(\.\d{1,2})?$/, {
+//     message: "正の数値を入力してください。小数点以下は2桁までです。",
+//   }),
+// });
