@@ -31,6 +31,7 @@ This project was created using `bun init` in bun v1.1.14. [Bun](https://bun.sh) 
 - Arc
 - WebSocket
 - Stream、チャット、動画のストリーム配信
+- husky
 -
 
 ## DrizzleORM の SQL 実行時間確認方法
