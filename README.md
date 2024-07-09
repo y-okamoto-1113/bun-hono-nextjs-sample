@@ -31,3 +31,9 @@ DB の状態を Drizzle Studio で確認する
 ```bash
 bunx drizzle-kit studio
 ```
+
+## DB を作り直したい時
+
+- `DB`を直接削除
+- `/drizzle`ディレクトリ毎削除する。
+- 環境構築手順を最初から実行
