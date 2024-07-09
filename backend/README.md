@@ -27,8 +27,27 @@ This project was created using `bun init` in bun v1.1.14. [Bun](https://bun.sh) 
 - bun
 - AWS Lambda へのデプロイ方法
 - TanStack Query
-- Drizzle
+- Drizzle ORM
 - Arc
 - WebSocket
 - Stream、チャット、動画のストリーム配信
 -
+
+## DrizzleORM の SQL 実行時間確認方法
+
+現在、SQL 実行時間が実装されていない。パッケージに無理やり実装するしかない。
+以下ファイルの `execute` メソッドに以下のコードを追加する。
+`backend/node_modules/drizzle-orm/pg-core/query-builders/select.js`
+
+```js
+execute = (placeholderValues) => {
+  return tracer.startActiveSpan('drizzle.operation', () => {
+    const start = performance.now();
+    const res = this._prepare().execute(placeholderValues);
+    const end = performance.now();
+    const duration = end - start;
+    console.log(`aaaaExecution time: ${duration.toFixed(2)} ms`);
+    return res;
+  });
+};
+```
